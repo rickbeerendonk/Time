@@ -9,6 +9,7 @@
 // You must not remove this notice, or any other, from this software.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Beerendonk.Time
@@ -16,7 +17,7 @@ namespace Beerendonk.Time
     /// <summary>
     /// Defines a Time Period.
     /// </summary>
-    public struct Period
+    public struct Period : IEquatable<Period>
     {
         private readonly DateTime from;
 
@@ -25,8 +26,8 @@ namespace Beerendonk.Time
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Period" /> structure.
         /// </summary>
-        /// <param name="from">The moment the period starts.</param>
-        /// <param name="to">The moment the period ends.</param>
+        /// <param name="from">The moment the period starts (included).</param>
+        /// <param name="to">The moment the period ends (excluded).</param>
         public Period(DateTime from, DateTime to)
         {
             this.from = from;
@@ -36,7 +37,7 @@ namespace Beerendonk.Time
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Period" /> structure.
         /// </summary>
-        /// <param name="from">The moment the period starts.</param>
+        /// <param name="from">The moment the period starts (included).</param>
         /// <param name="duration">The duration of the period.</param>
         public Period(DateTime from, TimeSpan duration)
         {
@@ -48,7 +49,7 @@ namespace Beerendonk.Time
         /// Initializes a new instance of the <see cref="T:Period" /> structure.
         /// </summary>
         /// <param name="duration">The duration of the period.</param>
-        /// <param name="to">The moment the period ends.</param>
+        /// <param name="to">The moment the period ends (excluded).</param>
         public Period(TimeSpan duration, DateTime to)
         {
             this.from = to - duration;
@@ -56,7 +57,18 @@ namespace Beerendonk.Time
         }
 
         /// <summary>
-        /// Defines the moment the period starts.
+        /// Gets the duration of the period.
+        /// </summary>
+        public TimeSpan Duration
+        {
+            get
+            {
+                return from - to;
+            }
+        }
+
+        /// <summary>
+        /// Gets the moment the period starts (included).
         /// </summary>
         public DateTime From 
         { 
@@ -67,7 +79,7 @@ namespace Beerendonk.Time
         }
 
         /// <summary>
-        /// Defines the moment the period ends.
+        /// Gets the moment the period ends (excluded).
         /// </summary>
         public DateTime To 
         { 
@@ -92,7 +104,7 @@ namespace Beerendonk.Time
         /// </summary>
         /// <returns>
         /// A string representation of value of the current <see cref="T:System.Period" /> object 
-        /// with <see cref="T:System.DateTime" />s as specified by <paramref name="provider" />.
+        /// with <see cref="T:System.DateTime" />s as specified by <paramref name="format" />.
         /// </returns>
         /// <param name="format">A standard or custom date and time format string (see Remarks).</param>
         /// <exception cref="T:System.FormatException">
@@ -109,8 +121,9 @@ namespace Beerendonk.Time
             return ToString(format, DateTimeFormatInfo.CurrentInfo);
         }
 
-        /// <summary>Converts the value of the current <see cref="T:Period" /> object to its 
-        /// equivalent string representation using the specified culture-specific format information.
+        /// <summary>
+        /// Converts the value of the current <see cref="T:Period" /> object to its equivalent 
+        /// string representation using the specified culture-specific format information.
         /// </summary>
         /// <returns>
         /// A string representation of value of the current <see cref="T:System.Period" /> object 
@@ -149,6 +162,129 @@ namespace Beerendonk.Time
         public string ToString(string format, IFormatProvider provider)
         {
             return String.Format("{0} - {1}", To.ToString(format, provider), From.ToString(format, provider));
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether this instance is equal to a specified object.
+        /// </summary>
+        /// <returns><c>true</c> if <paramref name="obj" /> is an instance of <see cref="T:Period" /> 
+        /// and equals the value of this instance; otherwise, <c>false</c>.
+        /// </returns>
+        /// <param name="obj">The object to compare to this instance. </param>
+        public override bool Equals(object obj)
+        {
+            return obj is DateTime && Equals((DateTime)obj);
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether the value of this instance is equal to the 
+        /// value of the specified <see cref="T:Period" /> instance.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the <paramref name="other" /> parameter equals the value of this 
+        /// instance; otherwise, <c>false</c>.
+        /// </returns>
+        /// <param name="other">The object to compare to this instance. </param>
+        public bool Equals(Period other)
+        {
+            return Equals(this, other);
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two <see cref="T:Period" /> instances have 
+        /// the same date and time value.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the two values are equal; otherwise, <c>false</c>.
+        /// </returns>
+        /// <param name="p1">The first object to compare.</param>
+        /// <param name="p2">The second object to compare.</param>
+        public static bool Equals(Period p1, Period p2)
+        {
+            return p1.from == p2.from && p1.to == p2.to;
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+        {
+            return to.GetHashCode() + from.GetHashCode();
+        }
+
+        /// <summary>
+        /// Gets the current day.
+        /// </summary>
+        /// <returns>
+        /// An object that is set to today, with the included start time set to 00:00:00 today 
+        /// and the exluded end time set to 00:00:00 the next day.
+        /// </returns>
+        public static Period Today
+        {
+            get
+            {
+                // Prevent asking Now twice and potentially get two dates.
+                var now = DateTime.Now;
+                return new Period(now.Date, now.Date.AddDays(1));
+            }
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two <see cref="T:Period" /> instances have equal.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the two values are equal; otherwise, <c>false</c>.
+        /// </returns>
+        /// <param name="p1">The first object to compare.</param>
+        /// <param name="p2">The second object to compare.</param>
+        public static bool operator ==(Period p1, Period p2)
+        {
+            return Equals(p1, p2);
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether two <see cref="T:Period" /> instances are different.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the two values are equal; otherwise, <c>false</c>.
+        /// </returns>
+        /// <param name="p1">The first object to compare.</param>
+        /// <param name="p2">The second object to compare.</param>
+        public static bool operator !=(Period p1, Period p2)
+        {
+            return !Equals(p1, p2);
+        }
+
+        public static IEnumerable<Period> operator +(Period p1, Period p2)
+        {
+            if (p1.to < p2.from || p1.from > p2.to)
+            {
+                yield return p1;
+                yield return p2;
+                yield break;
+            }
+
+            yield return new Period(
+                new DateTime(Math.Min(p1.from.Ticks, p2.from.Ticks)),
+                new DateTime(Math.Max(p1.to.Ticks, p2.to.Ticks)));
+        }
+
+        public static IEnumerable<Period> operator -(Period p1, Period p2)
+        {
+            if (p1.from < p2.from)
+            {
+                yield return new Period(
+                    p1.from,
+                    new DateTime(Math.Min(p1.to.Ticks, p2.from.Ticks)));
+            }
+
+            if (p1.to > p2.to)
+            {
+                yield return new Period(
+                    new DateTime(Math.Max(p1.from.Ticks, p2.to.Ticks)),
+                    p1.to);
+            }
         }
     }
 }

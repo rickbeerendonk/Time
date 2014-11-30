@@ -102,11 +102,11 @@ namespace Beerendonk.Time
         /// Converts the value of the current <see cref="T:Period" /> object to its equivalent 
         /// string representation using the specified format for each <see cref="T:System.DateTime" />.
         /// </summary>
+        /// <param name="format">A standard or custom date and time format string (see Remarks).</param>
         /// <returns>
         /// A string representation of value of the current <see cref="T:System.Period" /> object 
         /// with <see cref="T:System.DateTime" />s as specified by <paramref name="format" />.
         /// </returns>
-        /// <param name="format">A standard or custom date and time format string (see Remarks).</param>
         /// <exception cref="T:System.FormatException">
         /// The length of <paramref name="format" /> is 1, and it is not one of the format specifier 
         /// characters defined for <see cref="T:System.Globalization.DateTimeFormatInfo" />.-or- 
@@ -125,11 +125,11 @@ namespace Beerendonk.Time
         /// Converts the value of the current <see cref="T:Period" /> object to its equivalent 
         /// string representation using the specified culture-specific format information.
         /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
         /// <returns>
         /// A string representation of value of the current <see cref="T:System.Period" /> object 
         /// with <see cref="T:System.DateTime" />s as specified by <paramref name="provider" />.
         /// </returns>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// The date and time is outside the range of dates supported by the calendar used by 
         /// <paramref name="provider" />.
@@ -143,13 +143,13 @@ namespace Beerendonk.Time
         /// Converts the value of the current <see cref="T:Period" /> object to its equivalent 
         /// string representation using the specified format and culture-specific format information.
         /// </summary>
+        /// <param name="format">A standard or custom date and time format string.</param>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
         /// <returns>
         /// A string representation of value of the current <see cref="T:System.Period" /> object 
         /// with <see cref="T:System.DateTime" />s as specified by <paramref name="format" /> and 
         /// <paramref name="provider" />.
         /// </returns>
-        /// <param name="format">A standard or custom date and time format string.</param>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
         /// <exception cref="T:System.FormatException">
         /// The length of <paramref name="format" /> is 1, and it is not one of the format specifier 
         /// characters defined for <see cref="T:System.Globalization.DateTimeFormatInfo" />.-or- 
@@ -167,10 +167,10 @@ namespace Beerendonk.Time
         /// <summary>
         /// Returns a value indicating whether this instance is equal to a specified object.
         /// </summary>
+        /// <param name="obj">The object to compare to this instance. </param>
         /// <returns><c>true</c> if <paramref name="obj" /> is an instance of <see cref="T:Period" /> 
         /// and equals the value of this instance; otherwise, <c>false</c>.
         /// </returns>
-        /// <param name="obj">The object to compare to this instance. </param>
         public override bool Equals(object obj)
         {
             return obj is Period && Equals((Period)obj);
@@ -180,11 +180,11 @@ namespace Beerendonk.Time
         /// Returns a value indicating whether the value of this instance is equal to the 
         /// value of the specified <see cref="T:Period" /> instance.
         /// </summary>
+        /// <param name="other">The object to compare to this instance. </param>
         /// <returns>
         /// <c>true</c> if the <paramref name="other" /> parameter equals the value of this 
         /// instance; otherwise, <c>false</c>.
         /// </returns>
-        /// <param name="other">The object to compare to this instance. </param>
         public bool Equals(Period other)
         {
             return Equals(this, other);
@@ -194,11 +194,11 @@ namespace Beerendonk.Time
         /// Returns a value indicating whether two <see cref="T:Period" /> instances have 
         /// the same date and time value.
         /// </summary>
+        /// <param name="p1">The first object to compare.</param>
+        /// <param name="p2">The second object to compare.</param>
         /// <returns>
         /// <c>true</c> if the two values are equal; otherwise, <c>false</c>.
         /// </returns>
-        /// <param name="p1">The first object to compare.</param>
-        /// <param name="p2">The second object to compare.</param>
         public static bool Equals(Period p1, Period p2)
         {
             return p1.from == p2.from && p1.to == p2.to;
@@ -233,11 +233,11 @@ namespace Beerendonk.Time
         /// <summary>
         /// Returns a value indicating whether two <see cref="T:Period" /> instances have equal.
         /// </summary>
+        /// <param name="p1">The first object to compare.</param>
+        /// <param name="p2">The second object to compare.</param>
         /// <returns>
         /// <c>true</c> if the two values are equal; otherwise, <c>false</c>.
         /// </returns>
-        /// <param name="p1">The first object to compare.</param>
-        /// <param name="p2">The second object to compare.</param>
         public static bool operator ==(Period p1, Period p2)
         {
             return Equals(p1, p2);
@@ -246,16 +246,20 @@ namespace Beerendonk.Time
         /// <summary>
         /// Returns a value indicating whether two <see cref="T:Period" /> instances are different.
         /// </summary>
+        /// <param name="p1">The first object to compare.</param>
+        /// <param name="p2">The second object to compare.</param>
         /// <returns>
         /// <c>true</c> if the two values are equal; otherwise, <c>false</c>.
         /// </returns>
-        /// <param name="p1">The first object to compare.</param>
-        /// <param name="p2">The second object to compare.</param>
         public static bool operator !=(Period p1, Period p2)
         {
             return !Equals(p1, p2);
         }
 
+        /// <summary>Adds the specified periods, yielding one or two periods.</summary>
+        /// <param name="p1">The first period to add. </param>
+        /// <param name="p2">The second period to add. </param>
+        /// <returns>The sum of the periods.</returns>
         public static IEnumerable<Period> operator +(Period p1, Period p2)
         {
             if (p1.to < p2.from || p1.from > p2.to)
@@ -270,6 +274,13 @@ namespace Beerendonk.Time
                 new DateTime(Math.Max(p1.to.Ticks, p2.to.Ticks)));
         }
 
+        /// <summary>Subtracts a period from another period, yielding zero, one or two periods.</summary>
+        /// <param name="p1">The period to subtract from. </param>
+        /// <param name="p2">The period to subtract. </param>
+        /// <returns>
+        /// The periods that are part of period <paramref name="p1" /> but not part of period 
+        /// <paramref name="p2" />.
+        /// </returns>
         public static IEnumerable<Period> operator -(Period p1, Period p2)
         {
             if (p1.from < p2.from)

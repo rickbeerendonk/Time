@@ -1,6 +1,7 @@
 Time
 ====
 
+[![Build status](http://img.shields.io/appveyor/ci/rickbeerendonk/time.svg)](https://ci.appveyor.com/project/rickbeerendonk/time/branch/master)
 [![NuGet version](http://img.shields.io/nuget/v/Beerendonk.Time.svg)](https://www.nuget.org/packages/Beerendonk.Time)
 [![NuGet downloads](http://img.shields.io/nuget/dt/Beerendonk.Time.svg)](https://www.nuget.org/packages/Beerendonk.Time)
 

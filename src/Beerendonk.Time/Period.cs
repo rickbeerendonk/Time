@@ -63,7 +63,7 @@ namespace Beerendonk.Time
         {
             get
             {
-                return from - to;
+                return to - from;
             }
         }
 
@@ -161,7 +161,7 @@ namespace Beerendonk.Time
         /// </exception>
         public string ToString(string format, IFormatProvider provider)
         {
-            return String.Format("{0} - {1}", To.ToString(format, provider), From.ToString(format, provider));
+            return String.Format("{0} - {1}", from.ToString(format, provider), to.ToString(format, provider));
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Beerendonk.Time
         /// <param name="obj">The object to compare to this instance. </param>
         public override bool Equals(object obj)
         {
-            return obj is DateTime && Equals((DateTime)obj);
+            return obj is Period && Equals((Period)obj);
         }
 
         /// <summary>

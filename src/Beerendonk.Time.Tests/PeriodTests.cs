@@ -432,11 +432,13 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period + period;
+            IEnumerable<Period> actual1 = period + period;
+            IEnumerable<Period> actual2 = period.Add(period);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
@@ -456,11 +458,13 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 + period2;
+            IEnumerable<Period> actual1 = period1 + period2;
+            IEnumerable<Period> actual2 = period1.Add(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
@@ -480,11 +484,13 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 + period2;
+            IEnumerable<Period> actual1 = period1 + period2;
+            IEnumerable<Period> actual2 = period1.Add(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
@@ -504,11 +510,13 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 + period2;
+            IEnumerable<Period> actual1 = period1 + period2;
+            IEnumerable<Period> actual2 = period1.Add(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
@@ -528,15 +536,17 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 + period2;
+            IEnumerable<Period> actual1 = period1 + period2;
+            IEnumerable<Period> actual2 = period1.Add(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
-        public void RemoveEnclosedPeriodShouldReturnTwoPeriods()
+        public void SubtractEnclosedPeriodShouldReturnTwoPeriods()
         {
             // Arrange
 
@@ -552,15 +562,17 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 - period2;
+            IEnumerable<Period> actual1 = period1 - period2;
+            IEnumerable<Period> actual2 = period1.Subtract(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
-        public void RemoveLargerPeriodShouldReturnEmpty()
+        public void SubtractLargerPeriodShouldReturnEmpty()
         {
             // Arrange
 
@@ -576,15 +588,17 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 - period2;
+            IEnumerable<Period> actual1 = period1 - period2;
+            IEnumerable<Period> actual2 = period1.Subtract(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
-        public void RemovePastPeriodsShouldReturnTheOriginalPeriod()
+        public void SubtractPastPeriodsShouldReturnTheOriginalPeriod()
         {
             // Arrange
 
@@ -600,15 +614,17 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 - period2;
+            IEnumerable<Period> actual1 = period1 - period2;
+            IEnumerable<Period> actual2 = period1.Subtract(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
-        public void RemoveFuturePeriodsShouldReturnTheOriginalPeriod()
+        public void SubtractFuturePeriodsShouldReturnTheOriginalPeriod()
         {
             // Arrange
 
@@ -624,15 +640,17 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 - period2;
+            IEnumerable<Period> actual1 = period1 - period2;
+            IEnumerable<Period> actual2 = period1.Subtract(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
-        public void RemovePeriodWithOverlappingFromShouldReturnShortenedPeriod()
+        public void SubtractPeriodWithOverlappingFromShouldReturnShortenedPeriod()
         {
             // Arrange
 
@@ -648,15 +666,17 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 - period2;
+            IEnumerable<Period> actual1 = period1 - period2;
+            IEnumerable<Period> actual2 = period1.Subtract(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
 
         [TestMethod]
-        public void RemovePeriodWithOverlappingToShouldReturnShortenedPeriod()
+        public void SubtractPeriodWithOverlappingToShouldReturnShortenedPeriod()
         {
             // Arrange
 
@@ -672,11 +692,13 @@ namespace Beerendonk.Time.Tests
 
             // Act
 
-            IEnumerable<Period> actual = period1 - period2;
+            IEnumerable<Period> actual1 = period1 - period2;
+            IEnumerable<Period> actual2 = period1.Subtract(period2);
 
             // Assert
 
-            CollectionAssert.AreEqual(expected, (ICollection)actual.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual1.ToList());
+            CollectionAssert.AreEqual(expected, (ICollection)actual2.ToList());
         }
     }
 }

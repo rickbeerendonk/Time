@@ -213,6 +213,24 @@ namespace Beerendonk.Time
             return to.GetHashCode() + from.GetHashCode();
         }
 
+        /// <summary>Adds the specified period, yielding one or two periods.</summary>
+        /// <param name="other">The period to add. </param>
+        /// <returns>The sum of this period and the <paramref name="other"/> period.</returns>
+        public IEnumerable<Period> Add(Period other)
+        {
+            return this + other;
+        }
+
+        /// <summary>Subtracts the specified period, yielding zero, one or two periods.</summary>
+        /// <param name="other">The period to subtract. </param>
+        /// <returns>
+        /// The periods that are part of this period but not part of period <paramref name="other" />.
+        /// </returns>
+        public IEnumerable<Period> Subtract(Period other)
+        {
+            return this - other;
+        }
+
         /// <summary>
         /// Gets the current day.
         /// </summary>

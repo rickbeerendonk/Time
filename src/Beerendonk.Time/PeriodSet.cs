@@ -91,7 +91,7 @@ namespace Beerendonk.Time
                 int oldValue = newValue;
                 newValue += item.Value;
 
-                if ((oldValue == 0) && (newValue > 0))
+                if ((oldValue <= 0) && (newValue > 0))
                 {
                     from = item.Key;
                 }

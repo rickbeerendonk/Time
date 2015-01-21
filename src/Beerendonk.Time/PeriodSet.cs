@@ -96,7 +96,7 @@ namespace Beerendonk.Time
                     from = item.Key;
                 }
 
-                if ((newValue == 0) && (oldValue > 0))
+                if ((newValue <= 0) && (oldValue > 0))
                 {
                     yield return new Period(from, item.Key);
                 }

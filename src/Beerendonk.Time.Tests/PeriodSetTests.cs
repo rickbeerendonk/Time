@@ -41,6 +41,7 @@ namespace Beerendonk.Time.Tests
 
             var first = new PeriodSet(new List<Period>
             {
+                new Period(new DateTime(2010, 1, 1), new DateTime(2010, 2, 1)),
                 new Period(new DateTime(2011, 2, 1), new DateTime(2011, 3, 1)),
                 new Period(new DateTime(2013, 2, 1), new DateTime(2013, 11, 1)),
                 new Period(new DateTime(2014, 1, 1), new DateTime(2014, 12, 1)),
@@ -50,6 +51,7 @@ namespace Beerendonk.Time.Tests
             });
             var second = new PeriodSet(new List<Period>
             {
+                new Period(new DateTime(2010, 2, 1), new DateTime(2010, 3, 1)),
                 new Period(new DateTime(2011, 1, 1), new DateTime(2011, 2, 1)),
                 new Period(new DateTime(2012, 2, 1), new DateTime(2012, 11, 1)),
                 new Period(new DateTime(2014, 3, 1), new DateTime(2014, 10, 1)),
@@ -58,6 +60,7 @@ namespace Beerendonk.Time.Tests
             });
             var expected = new PeriodSet(new List<Period>
             {
+                new Period(new DateTime(2010, 1, 1), new DateTime(2010, 2, 1)),
                 new Period(new DateTime(2011, 2, 1), new DateTime(2011, 3, 1)),
                 new Period(new DateTime(2013, 2, 1), new DateTime(2013, 11, 1)),
                 new Period(new DateTime(2014, 1, 1), new DateTime(2014, 3, 1)),
@@ -118,6 +121,8 @@ namespace Beerendonk.Time.Tests
 
             var first = new PeriodSet(new List<Period>
             {
+                new Period(new DateTime(2010, 1, 1), new DateTime(2010, 2, 1)),
+                new Period(new DateTime(2011, 2, 1), new DateTime(2011, 3, 1)),
                 new Period(new DateTime(2013, 2, 1), new DateTime(2013, 11, 1)),
                 new Period(new DateTime(2014, 1, 1), new DateTime(2014, 12, 1)),
                 new Period(new DateTime(2014, 2, 1), new DateTime(2014, 11, 1)),
@@ -126,6 +131,8 @@ namespace Beerendonk.Time.Tests
             });
             var second = new PeriodSet(new List<Period>
             {
+                new Period(new DateTime(2010, 2, 1), new DateTime(2010, 3, 1)),
+                new Period(new DateTime(2011, 1, 1), new DateTime(2011, 2, 1)),
                 new Period(new DateTime(2012, 2, 1), new DateTime(2012, 11, 1)),
                 new Period(new DateTime(2014, 3, 1), new DateTime(2014, 10, 1)),
                 new Period(new DateTime(2015, 6, 1), new DateTime(2015, 11, 1)),
@@ -133,6 +140,8 @@ namespace Beerendonk.Time.Tests
             });
             var expected = new PeriodSet(new List<Period>
             {
+                new Period(new DateTime(2010, 1, 1), new DateTime(2010, 3, 1)),
+                new Period(new DateTime(2011, 1, 1), new DateTime(2011, 3, 1)),
                 new Period(new DateTime(2012, 2, 1), new DateTime(2012, 11, 1)),
                 new Period(new DateTime(2013, 2, 1), new DateTime(2013, 11, 1)),
                 new Period(new DateTime(2014, 1, 1), new DateTime(2014, 3, 1)),
